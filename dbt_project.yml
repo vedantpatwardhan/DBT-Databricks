@@ -1,0 +1,39 @@
+# Name your project! Project names should contain only lowercase characters
+# and underscores.
+name: 'dbt_project'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_project'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Directories to be removed by `dbt clean`
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+models:
+  dbt_project:
+    # Configurations apply to all files under respective subdirectories
+    bronze:
+      +materialized: table
+      +schema: bronze  # Added '+' to fix deprecation warning
+    silver:
+      +materialized: table
+      +schema: silver  # Added '+' to fix deprecation warning
+    gold:
+      +materialized: table
+      +schema: gold    # Added '+' to fix deprecation warning
+
+seeds:
+  dbt_project:
+    +schema: bronze
